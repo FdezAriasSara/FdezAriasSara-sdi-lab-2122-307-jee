@@ -1,0 +1,26 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+<html lang="en">
+<head><title>Servlets</title>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body> <!-- Contenido -->
+<div class="container" id="contenedor-principal"><h2>Formulario GET Saludar</h2>
+    <form action="GreetingServlet" method="get">
+        <div class="form-group"><label for="name-get">Nombre</label> <input class="form-control" id="name-get" name="name"
+                                                                            type="text"></div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+    <h2>Formulario POST</h2>
+    <form action="GreetingServlet" method="post">
+        <div class="form-group"><label for="name-post">Nombre</label> <input class="form-control" id="name-post"
+                                                                             name="name" type="text"></div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+</div>
+</body>
+</html>
