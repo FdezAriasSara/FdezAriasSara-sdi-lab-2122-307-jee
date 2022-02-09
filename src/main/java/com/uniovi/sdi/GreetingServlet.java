@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @WebServlet(name = "Servlet", value = "/Servlet")
-public class Servlet extends HttpServlet {
+public class GreetingServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     int contador = 0;
 
