@@ -9,7 +9,9 @@ public class Product {
         this.image = image;
         this.price = price;
     }
-
+    public Product(){
+        //para poder usar esta clase como Baean -> se requiere un constructor sin argumentos
+    }
     public String getName() {
         return name;
     }
