@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ page language="java" import="com.uniovi.sdi.*" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!--Para empleo de JSTL-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
@@ -13,7 +14,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-<%
+
+<!--
+< % El manejo de sesión -> Encapsulado mediante uso de JSTL
     String user = (String) request.getSession().getAttribute("user");
     //obtenemos el atributo user de la sesión.
     System.out.println("Usuario en sesión: " + user);
@@ -22,14 +25,29 @@
         // No hay usuario o no es admin
         response.sendRedirect("login.jsp");//se redirige al agente de usuario a la página de login
     }
-%>
-<!--Uso de Java Beans- para la creación de productos-->
-<jsp:useBean id="product" class="com.uniovi.sdi.Product"/>
-<jsp:setProperty name="product" property="*"/>
-<% if (product.getName() != null) {
+% >
+  Uso de Java Beans- para la creación de productos -> Encapsulado mediante uso de JSTL
+  < jsp:useBean id="product" class="com.uniovi.sdi.Product"/>
+< jsp:setProperty name="product" property="*"/>
+< % if (product.getName() != null) {
     new ProductsService().setNewProduct(product);
     request.getRequestDispatcher("index.jsp").forward(request, response);
-} %>
+} % >
+
+-->
+<!--Sustitución de JavaBeans por JSTL-->
+<!--Manejo de sesión-->
+<c:if test="${sessionScope.user != 'admin'}">
+    <c:redirect url="/login.jsp"/>
+</c:if>
+<!--Administrar productos-->
+<jsp:useBean id="product" class="com.uniovi.sdi.Product"/>
+<jsp:setProperty name="product" property="*"/>
+<c:if test="${product.name != null}">
+    <jsp:useBean id="productsService" class="com.uniovi.sdi.ProductsService"/>
+    <jsp:setProperty name="productsService" property="newProduct" value="${product}"/>
+    <c:redirect url="/index.jsp"/>
+</c:if>
 <!--
 Uso de la clase product previo al uso de Java beans
 < %

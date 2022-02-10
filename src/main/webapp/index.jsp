@@ -1,6 +1,11 @@
 
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" %>
+
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><!--DECLARACION USO JSTL-->
+<!--Hay que añadir esta directiva (la anterior) en cada pagina en la que se utilice-->
+
 <%@ page language="java" import="com.uniovi.sdi.* , java.util.List"%>
 <html lang="en">
 <head>
@@ -52,22 +57,43 @@ Implementación del contador previa al uso de Java beans.
 <div class="container" id="main-container">
     <h2>Productos</h2>
     <div class="row ">
-        <%
+        <!--
+        Este código quedará encapsulado mediante el uso de tags JSTL CORE.
+        < %
             List<Product> listProducts = new ProductsService().getProducts();
             for(Product product : listProducts){
-        %>
+        % >
+        -->
+        <jsp:useBean id="productsService" class= "com.uniovi.sdi.ProductsService"/>
+        <c:forEach var="product" begin="0" items="${productsService.products}">
+            <!--Por cada producto, se mostrará su imagen y precio de la siguiente forma:-->
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-            <div>
-                <img src="<%=product.getImage() %>" />
-                <div><%=product.getName() %></div>
-                <a href="AddToShoppingCart?product=<%=product.getName() %>" class="btn btn-default" >
-                    <%=product.getPrice() %> €
+            <div> <!--El elemento actual es el objeto "product", a cuyos atributos podemos acceder-->
+                <img src="<c:out value="${product.image}"/>"/>
+                <!--Los imprimimos por pantalla usando c : out -->
+                <div><c:out value="${product.name}"/></div>
+                <a href="AddToShoppingCart?product=<c:out value="${product.name}"/>"
+                   class="btn btn-default">
+                    <c:out value="${product.price}"/> €
                 </a>
             </div>
+            <!-- Código sin usar encapsulación:
+             <div>
+                <img src="< %=product.getImage() % >" />
+                <div>< %=product.getName() % ></div>
+                <a href="AddToShoppingCart?product=< %=product.getName() % >" class="btn btn-default" >
+                    < %=product.getPrice() % > €
+                </a>
+                  </div>
+                -->
+
         </div>
-        <%
+            </c:forEach><!--Cerramos el bucle-->
+            <!--
+        < %
             }
         %>
+            -->
     </div>
 </div>
 </body>
