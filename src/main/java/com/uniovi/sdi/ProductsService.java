@@ -8,7 +8,7 @@ public class ProductsService {
         List<Product> products = new LinkedList<Product>();
         ObjectContainer db = null;
         try {
-            db = Db4oEmbedded.openFile("bdProducts");
+            db = Db4oEmbedded.openFile("C:\\Users\\uo269546\\Desktop\\base\\bdProducts");
             List<Product> response = db.queryByExample(Product.class);
             // NO RETORNAR LA MISMA LISTA DE LA RESPUESTA
             products.addAll(response);
@@ -20,7 +20,7 @@ public class ProductsService {
     public void setNewProduct(Product newProduct) {
         ObjectContainer db = null;
         try {
-            db = Db4oEmbedded.openFile("bdProducts");
+            db = Db4oEmbedded.openFile("C:\\Users\\uo269546\\Desktop\\base\\bdProducts");
             db.store(newProduct);
         } finally {
             db.close();
